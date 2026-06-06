@@ -1,0 +1,63 @@
+#include "main.h"
+#include "MCP3008.h"
+#include "LiquidCrystal.h"
+#include "stdio.h"
+ 
+/* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi1;
+ 
+/* USER CODE BEGIN PV */
+MCP3008_SPI spi_mpc3008;
+uint16_t adc0,adc1,adc2,adc3;
+char MSG_0[20];
+char MSG_1[20];
+char MSG_2[20];
+char MSG_3[20];
+float result_0,result_1,result_2,result_3;
+/* USER CODE END PV */
+ 
+int main(void)
+{
+ 
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_SPI1_Init();
+ 
+  /* USER CODE BEGIN 2 */
+MCP3008_Init(&spi_mpc3008, &hspi1, GPIOA, GPIO_PIN_8);
+LiquidCrystal(GPIOB, GPIO_PIN_3,GPIO_PIN_4,GPIO_PIN_5,GPIO_PIN_6 ,GPIO_PIN_7,GPIO_PIN_8,GPIO_PIN_9);
+begin(20, 4);
+  /* USER CODE END 2 */
+ 
+  while (1)
+  {
+    /* Read ADC's*/
+       adc0 = MCP3008_Read_Channel(&spi_mpc3008, 0); // Channel 0
+       adc1 = MCP3008_Read_Channel(&spi_mpc3008, 1); // Channel 1
+       adc2 = MCP3008_Read_Channel(&spi_mpc3008, 2); // Channel 2
+       adc3 = MCP3008_Read_Channel(&spi_mpc3008, 3); // Channel 3
+ 
+      result_0 = (float)adc0;
+      result_1 = (float)adc1;
+      result_2 = (float)adc2;
+      result_3 = (float)adc3;
+ 
+      result_0=result_0/200;
+      result_1=result_1/200;
+      result_2=result_2/200;
+      result_3=result_3/200;
+ 
+      sprintf(MSG_0,"ADC0 Value = %.2f",result_0);
+      setCursor(0,0);
+      print(MSG_0);
+      sprintf(MSG_1,"ADC1 Value = %.2f",result_1);
+      setCursor(0,1);
+      print(MSG_1);
+      sprintf(MSG_2,"ADC2 Value = %.2f",result_2);
+      setCursor(0,2);
+      print(MSG_2);
+      sprintf(MSG_3,"ADC3 Value = %.2f",result_3);
+      setCursor(0,3);
+      print(MSG_3);
+}}

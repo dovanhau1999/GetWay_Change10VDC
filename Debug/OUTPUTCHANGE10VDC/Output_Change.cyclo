@@ -1,0 +1,5 @@
+../OUTPUTCHANGE10VDC/Output_Change.c:10:13:HardWave_Transmit24Bits	1
+../OUTPUTCHANGE10VDC/Output_Change.c:22:6:DAC8560_Init	1
+../OUTPUTCHANGE10VDC/Output_Change.c:32:6:DAC8560_EnableInternalVref	1
+../OUTPUTCHANGE10VDC/Output_Change.c:38:6:DAC8560_DisableInternalVref	1
+../OUTPUTCHANGE10VDC/Output_Change.c:43:6:DAC8560_WriteValue	1

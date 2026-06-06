@@ -1,0 +1,11 @@
+../MODBUS/PROTOCOL_RS485.c:53:17:Modbus_calcCRC	32	static
+../MODBUS/PROTOCOL_RS485.c:81:13:buildException	24	static
+../MODBUS/PROTOCOL_RS485.c:90:15:validateRequest	16	static
+../MODBUS/PROTOCOL_RS485.c:144:13:process_FC3	24	static
+../MODBUS/PROTOCOL_RS485.c:164:13:process_FC6	24	static
+../MODBUS/PROTOCOL_RS485.c:176:13:process_FC16	24	static
+../MODBUS/PROTOCOL_RS485.c:198:6:Modbus_Init	16	static
+../MODBUS/PROTOCOL_RS485.c:206:6:HAL_UART_RxCpltCallback	16	static
+../MODBUS/PROTOCOL_RS485.c:214:6:Modbus_ReceiveByte	16	static
+../MODBUS/PROTOCOL_RS485.c:223:13:Modbus_sendTxBuffer	16	static
+../MODBUS/PROTOCOL_RS485.c:233:6:Modbus_Process	24	static

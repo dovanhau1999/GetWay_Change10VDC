@@ -1,0 +1,2 @@
+../KALMAN_FILTER/PROTOCAL_Kalman.c:3:6:Kalman_Init	24	static
+../KALMAN_FILTER/PROTOCAL_Kalman.c:14:7:Kalman_Update	24	static

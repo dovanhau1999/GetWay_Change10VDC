@@ -1,0 +1,5 @@
+../MODBUS/HARDWAVE_MB.c:25:6:RS485_Config	24	static
+../MODBUS/HARDWAVE_MB.c:31:6:RS485_Init	24	static
+../MODBUS/HARDWAVE_MB.c:51:6:RS485_SendData	24	static
+../MODBUS/HARDWAVE_MB.c:63:6:RS485_ReceiveHandler	16	static
+../MODBUS/HARDWAVE_MB.c:71:10:RS485_GetTick	8	static

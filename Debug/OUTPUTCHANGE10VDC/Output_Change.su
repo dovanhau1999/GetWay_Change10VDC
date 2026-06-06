@@ -1,0 +1,5 @@
+../OUTPUTCHANGE10VDC/Output_Change.c:10:13:HardWave_Transmit24Bits	24	static
+../OUTPUTCHANGE10VDC/Output_Change.c:22:6:DAC8560_Init	24	static
+../OUTPUTCHANGE10VDC/Output_Change.c:32:6:DAC8560_EnableInternalVref	16	static
+../OUTPUTCHANGE10VDC/Output_Change.c:38:6:DAC8560_DisableInternalVref	16	static
+../OUTPUTCHANGE10VDC/Output_Change.c:43:6:DAC8560_WriteValue	24	static

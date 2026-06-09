@@ -40,7 +40,7 @@ void DAC8560_DisableInternalVref(DAC8560_SPI *spi)
     HardWave_Transmit24Bits(spi, 0x480401);
 }
 
-void DAC8560_WriteValue(DAC8560_SPI *spi, uint8_t value)
+void DAC8560_WriteValue(DAC8560_SPI *spi, uint16_t value)
 {
     uint32_t frame;
 

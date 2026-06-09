@@ -33,7 +33,7 @@ void MCP3208_Init(MCP3208_SPI *spi, SPI_HandleTypeDef *hspi, GPIO_TypeDef *CS_PO
  * @retval uint16_t
  *
  * @note Frame Transmitted/Received Data (copy form datasheet of MCP3208)
- * @note Mode: LSB Fisrt
+ * @note Mode: MSB Fisrt
  * @note  CLK: | 7 | 6 | 5 | 4 | 3 |     2    |    1     |  0  |       |  7   | 6  | 5 | 4    | 3   |  2  |  1  | 0   |          | 7  | 6  | 5  | 4  | 3  | 2  | 1  | 0  |
  * @note MOSI: | X | X | X | X | X |Start Bit | SGL/DIFF | D2  |       |  D1  | D0 | X | X    | X   |  X  |  X  | X   |          | X  | X  | X  | X  | X  | X  | X  | X  |
  * @note MISO: | ? | ? | ? | ? | ? |    ?     |    ?     | ?   |       |  ?   | ?  | ? | NULL | B11 | B10 | B9  | B8  |          | B7 | B6 | B5 | B4 | B3 | B2 | B1 | B0 |

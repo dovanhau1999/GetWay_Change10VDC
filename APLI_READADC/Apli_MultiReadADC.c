@@ -15,9 +15,9 @@
 #define ENABLE_CS1_Pin GPIO_PIN_4
 #define ENABLE_CS1_GPIO_Port GPIOA
 
-MCP3208_SPI _SPI1_ADC1;
+MCP3208_SPI _SPI1_ADC;
 
-uint16_t Value_IRMS[2] = {0};
+int16_t Value_VRMS[2] = {0};
 
 #ifdef USE_KALMAN_FILTER
 Kalman_t kalman[2];
@@ -26,17 +26,17 @@ Kalman_t kalman[2];
 
 void Apli_Multi_Read_Init(void)
 {
-    MCP3208_Init(&_SPI1_ADC1, &hspi1, ENABLE_CS1_GPIO_Port, ENABLE_CS1_Pin);
+    MCP3208_Init(&_SPI1_ADC, &hspi1, ENABLE_CS1_GPIO_Port, ENABLE_CS1_Pin);
 
 #ifdef USE_KALMAN_FILTER
-    uint16_t adc0 = MCP3208_Read_Channel(&_SPI1_ADC1, 0);
     for (uint8_t i = 0; i < 2; i++)
     {
         /* code */
+        uint16_t adc = MCP3208_Read_Channel(&_SPI1_ADC, i);
         Kalman_Init(&kalman[i],
-                    1E-5f, // Q
-                    5E1f,  // R
-                    adc0);
+                    5E-3f, // Q tỉ lệ thuận với độ trễ (Q càng nhỏ thì thay đổi giá trị càng chậm)
+                    5E1f,  // R tỉ lệ nghịch với độ nhiễu (R càng nhỏ thì lọc nhiều nhiễu hơn, độ trễ hơn)
+                    adc);
     }
 
 #endif
@@ -49,9 +49,11 @@ void Apli_Multi_Read_Loop(void)
     for (uint8_t i = 0; i < 2; i++)
     {
         /* code */
-        Dummy = MCP3208_Read_Channel(&_SPI1_ADC1, i);
+        Dummy = MCP3208_Read_Channel(&_SPI1_ADC, i);
         float filtered = Kalman_Update(&kalman[i], (float)Dummy);
-        Value_IRMS[i] = (uint16_t)(filtered * 4095.0f / (REGISTOR_MODBUS[VALUE_OF_VOLTAGE] / 100.0f)) * 100;
+        Value_VRMS[i] = (int32_t)((filtered * 360.0f / 4095.0f - 180.0f) * 10.0f); /**Chuyển đổi giá trị ADC sang góc - Từ -180...+180 độ tương ứng vơi 0...4095 của ADC
+                                                                                    * Sau đó nhân với 10 để có giá trị 1 chữ số thập phân
+                                                                                    */
     }
 #endif
 }

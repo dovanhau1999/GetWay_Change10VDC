@@ -28,6 +28,6 @@ typedef struct
 void DAC8560_Init(DAC8560_SPI *spi, SPI_HandleTypeDef *hspi, GPIO_TypeDef *CS_PORT, uint16_t CS_PIN);
 void DAC8560_EnableInternalVref(DAC8560_SPI *spi);
 void DAC8560_DisableInternalVref(DAC8560_SPI *spi);
-void DAC8560_WriteValue(DAC8560_SPI *spi, uint8_t value);
+void DAC8560_WriteValue(DAC8560_SPI *spi, uint16_t value);
 
 #endif /* OUTPUT_CHANGE_H_ */

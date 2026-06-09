@@ -24,8 +24,8 @@ extern uint32_t modbus_frame_timeout; // default (ms), sẽ update khi init
  */
 
 // Cấu hình chân ENABLE của RS485
-#define ENABLE_UART_Pin GPIO_PIN_2
-#define ENABLE_UART_GPIO_Port GPIOB
+#define ENABLE_UART_Pin GPIO_PIN_8
+#define ENABLE_UART_GPIO_Port GPIOA
 
 // Đối tượng Modbus
 

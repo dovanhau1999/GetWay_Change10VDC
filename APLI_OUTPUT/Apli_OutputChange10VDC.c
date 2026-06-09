@@ -17,6 +17,7 @@ DAC8560_SPI _SPI2_DAC1;
 void Apli_OutputChange10VDC_Init(void)
 {
     DAC8560_Init(&_SPI2_DAC1, &hspi2, ENABLE_CS2_GPIO_Port, ENABLE_CS2_Pin);
+    DAC8560_EnableInternalVref(&_SPI2_DAC1);
 }
 
 void Apli_OutputChange10VDC_SetValue(void)

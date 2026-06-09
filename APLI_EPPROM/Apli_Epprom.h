@@ -10,6 +10,7 @@
 
 #include "main.h"
 
+#define PE_ID 80
 #define PE_VALUEOFADC1 100
 #define PE_VALUEOFADC2 PE_VALUEOFADC1 + 2
 #define PE_VALUEOFVLOTAGE PE_VALUEOFADC2 + 2

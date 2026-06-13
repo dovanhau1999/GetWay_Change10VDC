@@ -1,2 +1,2 @@
-../APLI_READADC/Apli_MultiReadADC.c:27:6:Apli_Multi_Read_Init	24	static
-../APLI_READADC/Apli_MultiReadADC.c:45:6:Apli_Multi_Read_Loop	24	static
+../APLI_READADC/Apli_MultiReadADC.c:30:6:Apli_Multi_Read_Init	24	static
+../APLI_READADC/Apli_MultiReadADC.c:48:6:Apli_Multi_Read_Loop	16	static

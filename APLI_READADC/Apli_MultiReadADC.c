@@ -6,6 +6,7 @@
  */
 
 #include "Apli_MultiReadADC.h"
+#include "Apli_RS485.h"
 #include "HEADWAVE_MCP3208.h"
 #include "PROTOCAL_Kalman.h"
 #include "Apli_RS485.h"
@@ -17,7 +18,9 @@
 
 MCP3208_SPI _SPI1_ADC;
 
-int16_t Value_VRMS[2] = {0};
+int16_t Value_AngleExpected[2] = {0};
+float Value_VRMS_filtered[2] = {0};
+uint16_t Value_Of_VoltADC[2] = {0};
 
 #ifdef USE_KALMAN_FILTER
 Kalman_t kalman[2];
@@ -45,15 +48,16 @@ void Apli_Multi_Read_Init(void)
 void Apli_Multi_Read_Loop(void)
 {
 #ifdef USE_KALMAN_FILTER
-    uint16_t Dummy;
-    for (uint8_t i = 0; i < 2; i++)
-    {
-        /* code */
-        Dummy = MCP3208_Read_Channel(&_SPI1_ADC, i);
-        float filtered = Kalman_Update(&kalman[i], (float)Dummy);
-        Value_VRMS[i] = (int32_t)((filtered * 360.0f / 4095.0f - 180.0f) * 10.0f); /**Chuyển đổi giá trị ADC sang góc - Từ -180...+180 độ tương ứng vơi 0...4095 của ADC
-                                                                                    * Sau đó nhân với 10 để có giá trị 1 chữ số thập phân
-                                                                                    */
-    }
+
+    Value_Of_VoltADC[0] = MCP3208_Read_Channel(&_SPI1_ADC, 0);
+    Value_VRMS_filtered[0] = Kalman_Update(&kalman[0], (float)Value_Of_VoltADC[0]);
+    Value_AngleExpected[0] = (int32_t)(((Value_VRMS_filtered[0] - REGISTOR_MODBUS[VALUE_Vrms_ShiftToZero1]) * 360.0f / 4095.0f) * 100.0f); /**Chuyển đổi giá trị ADC sang góc - Từ -180...+180 độ tương ứng vơi 0...4095 của ADC
+                                                                                                                                           * Sau đó nhân với 10 để có giá trị 1 chữ số thập phân
+                                                                                                                                           */
+
+    Value_Of_VoltADC[1] = MCP3208_Read_Channel(&_SPI1_ADC, 1);
+    Value_VRMS_filtered[1] = Kalman_Update(&kalman[1], (float)Value_Of_VoltADC[1]);
+    Value_AngleExpected[1] = (int32_t)(((Value_VRMS_filtered[1] - REGISTOR_MODBUS[VALUE_Vrms_ShiftToZero2]) * 360.0f / 4095.0f) * 100.0f);
+
 #endif
 }

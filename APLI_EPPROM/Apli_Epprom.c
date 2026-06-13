@@ -6,8 +6,8 @@
  */
 
 #include "Apli_Epprom.h"
-#include "PROTOCAL_EEPROM.h"
 #include "Apli_RS485.h"
+#include "PROTOCAL_EEPROM.h"
 
 uint16_t last_VarOutput, last_ValOfVoltage;
 
@@ -23,18 +23,18 @@ void Apli_Epprom_Init(void)
 void Apli_Epprom_Loop(void)
 {
     // Write data to EEPROM when variable change
-    static uint16_t var1, var2;
-    var1 = REGISTOR_MODBUS[VALUE_OUTPUT_10VDC];
-    var2 = REGISTOR_MODBUS[VALUE_OF_VOLTAGE];
+//    static uint16_t var1, var2;
+//    var1 = REGISTOR_MODBUS[VALUE_OUTPUT_10VDC];
+//    var2 = REGISTOR_MODBUS[VALUE_OF_VOLTAGE];
 
-    if (var1 != last_VarOutput)
-    {
-        last_VarOutput = var1;
-        PE_WriteExtEepromU16(PE_VALUESETOUTPUT10VDC, var1);
-    }
-    if (var2 != last_ValOfVoltage)
-    {
-        last_ValOfVoltage = var2;
-        PE_WriteExtEepromU16(PE_VALUEOFVLOTAGE, var2);
-    }
+    // if (var1 != last_VarOutput)
+    // {
+    //     last_VarOutput = var1;
+    //     PE_WriteExtEepromU16(PE_VALUESETOUTPUT10VDC, var1);
+    // }
+    // if (var2 != last_ValOfVoltage)
+    // {
+    //     last_ValOfVoltage = var2;
+    //     PE_WriteExtEepromU16(PE_VALUEOFVLOTAGE, var2);
+    // }
 }

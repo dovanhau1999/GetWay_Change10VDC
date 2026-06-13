@@ -1,2 +1,2 @@
-../APLI_OUTPUT/Apli_OutputChange10VDC.c:17:6:Apli_OutputChange10VDC_Init	8	static
-../APLI_OUTPUT/Apli_OutputChange10VDC.c:23:6:Apli_OutputChange10VDC_SetValue	8	static
+../APLI_OUTPUT/Apli_OutputChange10VDC.c:20:6:Apli_OutputChange10VDC_Init	8	static
+../APLI_OUTPUT/Apli_OutputChange10VDC.c:26:6:Apli_OutputChange10VDC_SetValue	8	static

@@ -61,6 +61,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 3.Gateway_1.001.list \
 
+OBJCOPY_HEX += \
+3.Gateway_1.001.hex \
+
 
 # All Target
 all: main-build
@@ -84,12 +87,17 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+3.Gateway_1.001.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "3.Gateway_1.001.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) 3.Gateway_1.001.elf 3.Gateway_1.001.list 3.Gateway_1.001.map default.size.stdout
+	-$(RM) 3.Gateway_1.001.elf 3.Gateway_1.001.hex 3.Gateway_1.001.list 3.Gateway_1.001.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

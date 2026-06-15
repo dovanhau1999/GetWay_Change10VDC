@@ -48,8 +48,8 @@
 #define ReactiveADC_PhaseB_Of_ADE2 ReactiveADC_PhaseA_Of_ADE2 + 4
 #define ReactiveADC_PhaseC_Of_ADE2 ReactiveADC_PhaseB_Of_ADE2 + 4
 
-HAL_StatusTypeDef PE_WriteExtEepromU16(uint16_t address, uint16_t data);
-HAL_StatusTypeDef PE_ReadExtEepromU16(uint16_t address, uint16_t *data);
+HAL_StatusTypeDef PE_WriteExtEepromU16(uint16_t address, int16_t data);
+HAL_StatusTypeDef PE_ReadExtEepromU16(uint16_t address, int16_t *data);
 
 HAL_StatusTypeDef PE_WriteExtEepromU32(uint16_t address, uint32_t data);
 HAL_StatusTypeDef PE_ReadExtEEproomU32(uint16_t address, uint32_t *data);

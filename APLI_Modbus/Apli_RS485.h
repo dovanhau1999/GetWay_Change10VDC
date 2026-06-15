@@ -11,14 +11,15 @@
 #include "main.h"
 
 #define VALUE_ID 0
-#define VALUE_VRMS_CHANNEL1 1
-#define VALUE_Vrms_ShiftToZero1 2
-#define VALUE_ANGLE_CHANNEL1 3
-#define VALUE_VRMS_CHANNEL2 4
-#define VALUE_Vrms_ShiftToZero2 5
-#define VALUE_ANGLE_CHANNEL2 6
-#define VALUE_OF_VOLTAGE 7
-#define VALUE_OUTPUT_10VDC 8
+#define VALUE_ADCVolt_CHANNEL1 1
+#define VALUE_ADCVolt_ShiftToZero1 2
+#define VALUE_ANGLE_CHANEL1EXPECT 3
+#define VALUE_ANGLE_CHANEL1ACTUAL 4
+#define VALUE_ADCVolt_CHANNEL2 5
+#define VALUE_ADCVolt_ShiftToZero2 6
+#define VALUE_ANGLE_CHANNEL2 7
+#define VALUE_OF_VOLTAGE 8
+#define VALUE_OUTPUT_10VDC 9
 
 #define MAX_DATA_MODBUS 18
 extern uint16_t REGISTOR_MODBUS[MAX_DATA_MODBUS];

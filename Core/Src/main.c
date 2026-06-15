@@ -92,7 +92,7 @@ static void MX_SPI2_Init(void);
  * @param Period: Khoảng thời gian giữa các lần thực hiện tác vụ (ms)
  */
 LoopTask_t Task1 = {0, 20};  // 20ms
-LoopTask_t Task2 = {0, 200};  // 200ms
+LoopTask_t Task2 = {0, 20};  // 200ms
 LoopTask_t Task3 = {0, 500};  // 500ms
 LoopTask_t Task4 = {0, 1000}; // 1s
 LoopTask_t Task5 = {0, 5000}; // 5s

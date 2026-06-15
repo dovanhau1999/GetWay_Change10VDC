@@ -1,2 +1,2 @@
-../APLI_Modbus/Apli_RS485.c:21:6:Apli_Modbus_RS485_Init	8	static
-../APLI_Modbus/Apli_RS485.c:34:6:Apli_Modbus_RS485_Loop	8	static
+../APLI_Modbus/Apli_RS485.c:22:6:Apli_Modbus_RS485_Init	8	static
+../APLI_Modbus/Apli_RS485.c:35:6:Apli_Modbus_RS485_Loop	8	static

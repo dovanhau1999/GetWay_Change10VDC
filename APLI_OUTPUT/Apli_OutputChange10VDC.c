@@ -31,17 +31,17 @@ void Apli_OutputChange10VDC_SetValue(void)
      * Do đó cần chọn giá trị giới hạn của góc là -45 độ đến +45 độ, tương ứng với giá trị ADC là 0 đến 65535
      * Giá trị đo 0-5VDC tương ứng -180 độ đến +180 độ. Mà đồng hồ không hiểu thị hết nên phải giới hạn.
      */
-    if (Value_AngleExpected[0] <= -4500)
+    if (Value_AngleExpected[0] <= -450)
     {
-        Value_AngleExpected[0] = -4500;
+        Value_AngleExpected[0] = -450;
     }
-    else if (Value_AngleExpected[0] >= 4500)
+    else if (Value_AngleExpected[0] >= 450)
     {
-        Value_AngleExpected[0] = 4500;
+        Value_AngleExpected[0] = 450;
     }
 
-    value_angle = (uint16_t)(((Value_AngleExpected[0] + 4500.0f) * 65535.0f) / 9000.0f); /* Lấy giá trị Độ ở thanh ghi 0x01 chuyển thành dải 0 : 65535
-                                                                                            Thay việc cho việc phải set giá trị vào thanh ghi 0x04
-                                                                                        */
+    value_angle = (uint16_t)((((Value_AngleExpected[0] + 450.0f) * 65535.0f) / 900.0f)); /* Lấy giá trị Độ ở thanh ghi 0x01 chuyển thành dải 0 : 65535
+                                                                                          *  Thay việc cho việc phải set giá trị vào thanh ghi 0x04
+                                                                                          */
     DAC8560_WriteValue(&_SPI2_DAC1, value_angle);                                        // Giá trị được Set từ 0 : 65535, tương ứng với -10VDC : +10VDC
 }

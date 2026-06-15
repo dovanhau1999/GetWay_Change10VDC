@@ -1,2 +1,2 @@
-../APLI_EPPROM/Apli_Epprom.c:14:6:Apli_Epprom_Init	1
-../APLI_EPPROM/Apli_Epprom.c:23:6:Apli_Epprom_Loop	1
+../APLI_EPPROM/Apli_Epprom.c:18:6:Apli_Epprom_Init	1
+../APLI_EPPROM/Apli_Epprom.c:29:6:Apli_Epprom_Loop	3

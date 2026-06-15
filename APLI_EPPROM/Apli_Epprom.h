@@ -11,10 +11,8 @@
 #include "main.h"
 
 #define PE_ID 80
-#define PE_VALUEOFADC1 100
-#define PE_VALUEOFADC2 PE_VALUEOFADC1 + 2
-#define PE_VALUEOFVLOTAGE PE_VALUEOFADC2 + 2
-#define PE_VALUESETOUTPUT10VDC PE_VALUEOFVLOTAGE + 2
+#define PE_ValueADCVoltShitfZero 100
+#define PE_ValueAngleExpected 104
 
 void Apli_Epprom_Init(void);
 void Apli_Epprom_Loop(void);

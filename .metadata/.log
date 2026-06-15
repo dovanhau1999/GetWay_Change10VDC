@@ -1,0 +1,41 @@
+!SESSION 2026-06-15 22:27:01.484 -----------------------------------------------
+eclipse.buildId=Version 2.1.1
+java.version=21.0.9
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data G:\3. PROJECT\VD_GetWay_Change10VDC
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-06-15 22:27:05.366
+!MESSAGE Log4j2 initialized with config file G:\3. PROJECT\VD_GetWay_Change10VDC\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-06-15 22:27:07.757
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-06-15 22:27:08.328
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+COM1
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-06-15 22:27:08.330
+!MESSAGE port: COM1
+!SESSION 2026-06-15 22:41:58.645 -----------------------------------------------
+eclipse.buildId=Version 2.1.1
+java.version=21.0.9
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  G:\3. PROJECT\VD_GetWay_Change10VDC\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 G:\3. PROJECT\VD_GetWay_Change10VDC\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-06-15 22:42:09.957
+!MESSAGE Log4j2 initialized with config file G:\3. PROJECT\VD_GetWay_Change10VDC\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-06-15 22:42:12.350
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-06-15 22:42:23.468
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+COM1
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-06-15 22:42:23.470
+!MESSAGE port: COM1

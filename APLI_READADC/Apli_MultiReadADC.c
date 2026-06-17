@@ -18,7 +18,10 @@
 
 MCP3208_SPI _SPI1_ADC;
 
-extern uint16_t last_ValueSetSector;
+// extern uint16_t last_ValueSetSector;
+extern uint16_t last_ADC_N40;
+extern uint16_t last_ADC_0;
+extern uint16_t last_ADC_P40;
 
 float Value_ADCVolt_filtered[2] = {0};
 uint16_t Value_Of_VoltADC[2] = {0};
@@ -53,9 +56,24 @@ void Apli_Multi_Read_Loop(void)
 
     Value_Of_VoltADC[0] = MCP3208_Read_Channel(&_SPI1_ADC, 0);
     Value_ADCVolt_filtered[0] = Kalman_Update(&kalman[0], (float)Value_Of_VoltADC[0]);
-    OutputAngle = (int16_t)(((Value_ADCVolt_filtered[0] - last_ValueSetSector) * 360.0f / 4096.0f) * 10.0f);
+    // OutputAngle = (int16_t)(((Value_ADCVolt_filtered[0] - last_ValueSetSector) * 360.0f / 4096.0f) * 10.0f);
 
     Value_Of_VoltADC[1] = MCP3208_Read_Channel(&_SPI1_ADC, 1);
     Value_ADCVolt_filtered[1] = Kalman_Update(&kalman[1], (float)Value_Of_VoltADC[1]);
+
+    if (Value_ADCVolt_filtered[0] <= last_ADC_0)
+    {
+        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N40) * 400 / (last_ADC_0 - last_ADC_N40) - 400;
+    }
+    else if ((Value_ADCVolt_filtered[0] > last_ADC_0) && (Value_ADCVolt_filtered[0] <= last_ADC_P40))
+    {
+        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 400 / (last_ADC_P40 - last_ADC_0);
+    }
+
+    if ((Value_ADCVolt_filtered[0] < last_ADC_N40) || (Value_ADCVolt_filtered[0] > last_ADC_P40))
+    {
+        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 3600.0f / 4096.0f
+    }
+
 #endif
 }

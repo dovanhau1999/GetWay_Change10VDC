@@ -16,6 +16,10 @@
 #define PE_ValueADCMinOutput 140
 #define PE_ValueADCMaxOutput 148
 
+#define PE_ADC_N40 180
+#define PE_ADC_0 184
+#define PE_ADC_P40 188
+
 void Apli_Epprom_Init(void);
 void Apli_Epprom_Loop(void);
 

@@ -21,6 +21,10 @@
 // #define VALUE_OF_VOLTAGE 8
 #define VALUE_OUTPUT_10VDC 9
 
+#define VALUE_ADC_N40 10
+#define VALUE_ADC_0 11
+#define VALUE_ADC_P40 12
+
 #define MAX_DATA_MODBUS 18
 extern uint16_t REGISTOR_MODBUS[MAX_DATA_MODBUS];
 

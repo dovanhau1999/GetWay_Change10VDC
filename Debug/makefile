@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (14.3.rel1)
+# Toolchain: GNU Tools for STM32 (13.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -72,8 +72,8 @@ all: main-build
 main-build: 3.Gateway_1.001.elf secondary-outputs
 
 # Tool invocations
-3.Gateway_1.001.elf 3.Gateway_1.001.map: $(OBJS) $(USER_OBJS) D:\2.PROJECT\14.Analog10VDC\3.SOURCE\3.Gateway_1.001\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "3.Gateway_1.001.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\2.PROJECT\14.Analog10VDC\3.SOURCE\3.Gateway_1.001\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="3.Gateway_1.001.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+3.Gateway_1.001.elf 3.Gateway_1.001.map: $(OBJS) $(USER_OBJS) C:\Users\Dell\Desktop\HAUDO\3.Gateway_1.001\3.SOURCE\3.SOURCE\3.Gateway_1.001\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "3.Gateway_1.001.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Dell\Desktop\HAUDO\3.Gateway_1.001\3.SOURCE\3.SOURCE\3.Gateway_1.001\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="3.Gateway_1.001.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

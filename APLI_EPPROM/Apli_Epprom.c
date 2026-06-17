@@ -9,26 +9,43 @@
 #include "Apli_RS485.h"
 #include "PROTOCAL_EEPROM.h"
 
-
-int16_t last_SetShitfZero = 0;
+uint16_t last_ValueSetTerminal = 0;
+uint16_t last_ValueSetSector = 0;
+uint16_t last_SetMinADCOutput = 0;
+uint16_t last_SetMaxADCOutput = 0;
 
 void Apli_Epprom_Init(void)
 {
     // Read date from EEPROM and save to variable
-    PE_ReadExtEepromU16(PE_ValueADCVoltShitfZero, &last_SetShitfZero);
-    REGISTOR_MODBUS[VALUE_ADCVolt_ShiftToZero1] = last_SetShitfZero;
+	PE_ReadExtEepromU16(PE_ValueTerminalZERO, &last_ValueSetTerminal);
+	if ((last_ValueSetTerminal == 0) || (last_ValueSetTerminal == 0xFFFF))
+	{
+		last_ValueSetTerminal = 100;
+	}
+	REGISTOR_MODBUS[VALUE_CalibTerminal] = last_ValueSetTerminal;
+
+	PE_ReadExtEepromU16(PE_ValueSectorZERO, &last_ValueSetSector);
+	if ((last_ValueSetSector == 0) || (last_ValueSetSector == 0xFFFF))
+	{
+		last_ValueSetSector = 100;
+	}
+	REGISTOR_MODBUS[VALUE_CalibSector] = last_ValueSetSector;
+
+	PE_ReadExtEepromU16(PE_ValueADCMinOutput, &last_SetMinADCOutput);
+	if ((last_SetMinADCOutput == 0) || (last_SetMinADCOutput == 0xFFFF))
+	{
+		last_SetMinADCOutput = 1000;
+	}
+	REGISTOR_MODBUS[VALUE_SetMINoutput] = last_SetMinADCOutput;
+
+	PE_ReadExtEepromU16(PE_ValueADCMaxOutput, &last_SetMaxADCOutput);
+	if ((last_SetMaxADCOutput == 0) || (last_SetMaxADCOutput == 0xFFFF))
+	{
+		last_SetMaxADCOutput = 1000;
+	}
+	REGISTOR_MODBUS[VALUE_SetMAXoutput] = last_SetMaxADCOutput;
 }
 
 void Apli_Epprom_Loop(void)
 {
-    // Write data to EEPROM when variable change
-    int16_t var1;
-    var1 = REGISTOR_MODBUS[VALUE_ADCVolt_ShiftToZero1];
-
-    if (var1 != last_SetShitfZero)
-    {
-        last_SetShitfZero = var1;
-        PE_WriteExtEepromU16(PE_ValueADCVoltShitfZero, last_SetShitfZero);
-        // HAL_NVIC_SystemReset();
-    }
 }

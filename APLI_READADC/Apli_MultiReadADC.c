@@ -18,8 +18,11 @@
 
 MCP3208_SPI _SPI1_ADC;
 
+extern uint16_t last_ValueSetSector;
+
 float Value_ADCVolt_filtered[2] = {0};
 uint16_t Value_Of_VoltADC[2] = {0};
+int16_t OutputAngle;
 
 #ifdef USE_KALMAN_FILTER
 Kalman_t kalman[2];
@@ -40,7 +43,6 @@ void Apli_Multi_Read_Init(void)
                     5E1f,  // R tỉ lệ nghịch với độ nhiễu (R càng nhỏ thì lọc nhiều nhiễu hơn, độ trễ hơn)
                     adc);
     }
-    
 
 #endif
 }
@@ -51,8 +53,9 @@ void Apli_Multi_Read_Loop(void)
 
     Value_Of_VoltADC[0] = MCP3208_Read_Channel(&_SPI1_ADC, 0);
     Value_ADCVolt_filtered[0] = Kalman_Update(&kalman[0], (float)Value_Of_VoltADC[0]);
+    OutputAngle = (int16_t)(((Value_ADCVolt_filtered[0] - last_ValueSetSector) * 360.0f / 4096.0f) * 10.0f);
 
-   Value_Of_VoltADC[1] = MCP3208_Read_Channel(&_SPI1_ADC, 1);
-   Value_ADCVolt_filtered[1] = Kalman_Update(&kalman[1], (float)Value_Of_VoltADC[1]);
+    Value_Of_VoltADC[1] = MCP3208_Read_Channel(&_SPI1_ADC, 1);
+    Value_ADCVolt_filtered[1] = Kalman_Update(&kalman[1], (float)Value_Of_VoltADC[1]);
 #endif
 }

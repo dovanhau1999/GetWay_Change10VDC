@@ -14,7 +14,7 @@
  * @param data Two bytes write to EEPROM
  * @retval HAL status
  */
-HAL_StatusTypeDef PE_WriteExtEepromU16(uint16_t address, int16_t data)
+HAL_StatusTypeDef PE_WriteExtEepromU16(uint16_t address, uint16_t data)
 {
 	HAL_StatusTypeDef output;
 	uint8_t array_write[4];
@@ -39,10 +39,10 @@ HAL_StatusTypeDef PE_WriteExtEepromU16(uint16_t address, int16_t data)
  * @brief
  * This function is used read two bytes from EEPROM .
  * @param address Address in EEPROM
- * @param data int16 (two bytes) read from EEPROM
+ * @param data uint16 (two bytes) read from EEPROM
  * @retval HAL status
  */
-HAL_StatusTypeDef PE_ReadExtEepromU16(uint16_t address, int16_t *data)
+HAL_StatusTypeDef PE_ReadExtEepromU16(uint16_t address, uint16_t *data)
 {
 	HAL_StatusTypeDef output;
 	uint8_t addr[2];
@@ -62,9 +62,9 @@ HAL_StatusTypeDef PE_ReadExtEepromU16(uint16_t address, int16_t *data)
 	if (output != HAL_OK)
 		return output;
 
-	// Ghép lại thành int16_t
-	*data = ((int16_t)buffer[0] << 8) |
-			(int16_t)buffer[1];
+	// Ghép lại thành uint16_t
+	*data = ((uint16_t)buffer[0] << 8) |
+			(uint16_t)buffer[1];
 
 	return HAL_OK;
 }

@@ -11,8 +11,10 @@
 #include "main.h"
 
 #define PE_ID 80
-#define PE_ValueADCVoltShitfZero 100
-#define PE_ValueAngleExpected 104
+#define PE_ValueSectorZERO 100
+#define PE_ValueTerminalZERO 104
+#define PE_ValueADCMinOutput 140
+#define PE_ValueADCMaxOutput 148
 
 void Apli_Epprom_Init(void);
 void Apli_Epprom_Loop(void);

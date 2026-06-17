@@ -1,2 +1,2 @@
-../APLI_Modbus/Apli_RS485.c:22:6:Apli_Modbus_RS485_Init	2
-../APLI_Modbus/Apli_RS485.c:35:6:Apli_Modbus_RS485_Loop	2
+../APLI_Modbus/Apli_RS485.c:20:6:Apli_Modbus_RS485_Init	2
+../APLI_Modbus/Apli_RS485.c:33:6:Apli_Modbus_RS485_Loop	2

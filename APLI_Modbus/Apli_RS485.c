@@ -12,11 +12,8 @@
 
 uint16_t REGISTOR_MODBUS[MAX_DATA_MODBUS] = {0};
 
-extern int16_t last_SetShitfZero;
-
 extern float Value_ADCVolt_filtered[2];
-extern int16_t ErrorAngle;
-
+extern int16_t OutputAngle;
 
 static uint16_t last_ID;
 
@@ -38,11 +35,11 @@ void Apli_Modbus_RS485_Loop(void)
     Modbus_Process(REGISTOR_MODBUS, MAX_DATA_MODBUS);
 
     REGISTOR_MODBUS[VALUE_ADCVolt_CHANNEL1] = (uint16_t)(Value_ADCVolt_filtered[0]);
-    REGISTOR_MODBUS[VALUE_ADCVolt_ShiftToZero1] = (uint16_t)last_SetShitfZero;
-    REGISTOR_MODBUS[VALUE_ANGLE_CHANEL1ACTUAL] = (uint16_t)((Value_ADCVolt_filtered[0] + ErrorAngle) * 360.0f / 4096.0f); /**Giá trị Góc hiển thị ở thanh ghi là giá trị thực tế, đã trừ đi sai số do đồng hồ
-                                                                                                                                   * Lấy giá trị Góc trừ đi giá trị góc sai số do đồng hồ thì giá trị Góc hiển thị ở thanh ghi mới là thực tế
-                                                                                                                                   */
-   
+
+    REGISTOR_MODBUS[VALUE_ANGLE_CHANEL1ACTUAL] = (uint16_t) OutputAngle; /**Giá trị Góc hiển thị ở thanh ghi là giá trị thực tế, đã trừ đi sai số do đồng hồ
+                                                                                                                              * Lấy giá trị Góc trừ đi giá trị góc sai số do đồng hồ thì giá trị Góc hiển thị ở thanh ghi mới là thực tế
+                                                                                                                              */
+
     if (last_ID != REGISTOR_MODBUS[VALUE_ID])
     {
         last_ID = REGISTOR_MODBUS[VALUE_ID];

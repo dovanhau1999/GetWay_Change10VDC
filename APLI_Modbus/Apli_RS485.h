@@ -22,10 +22,16 @@
 #define VALUE_OUTPUT_10VDC 9
 
 #define VALUE_ADC_N40 10
-#define VALUE_ADC_0 11
-#define VALUE_ADC_P40 12
+#define VALUE_ADC_N30 11
+#define VALUE_ADC_N20 12
+#define VALUE_ADC_N10 13
+#define VALUE_ADC_0 14
+#define VALUE_ADC_P10 15
+#define VALUE_ADC_P20 16
+#define VALUE_ADC_P30 17
+#define VALUE_ADC_P40 18
 
-#define MAX_DATA_MODBUS 18
+#define MAX_DATA_MODBUS 20
 extern uint16_t REGISTOR_MODBUS[MAX_DATA_MODBUS];
 
 void Apli_Modbus_RS485_Init(void);

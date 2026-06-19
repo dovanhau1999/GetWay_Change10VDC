@@ -15,62 +15,95 @@ uint16_t last_SetMinADCOutput = 0;
 uint16_t last_SetMaxADCOutput = 0;
 
 uint16_t last_ADC_N40 = 0;
+uint16_t last_ADC_N30 = 0;
+uint16_t last_ADC_N20 = 0;
+uint16_t last_ADC_N10 = 0;
 uint16_t last_ADC_0 = 0;
+uint16_t last_ADC_P10 = 0;
+uint16_t last_ADC_P20 = 0;
+uint16_t last_ADC_P30 = 0;
 uint16_t last_ADC_P40 = 0;
 
-void Apli_Epprom_Init(void)
-{
-    // Read date from EEPROM and save to variable
+void Apli_Epprom_Init(void) {
+	// Read date from EEPROM and save to variable
 	PE_ReadExtEepromU16(PE_ValueTerminalZERO, &last_ValueSetTerminal);
-	if ((last_ValueSetTerminal == 0) || (last_ValueSetTerminal == 0xFFFF))
-	{
+	if ((last_ValueSetTerminal == 0) || (last_ValueSetTerminal == 0xFFFF)) {
 		last_ValueSetTerminal = 100;
 	}
 	REGISTOR_MODBUS[VALUE_CalibTerminal] = last_ValueSetTerminal;
 
 	PE_ReadExtEepromU16(PE_ValueSectorZERO, &last_ValueSetSector);
-	if ((last_ValueSetSector == 0) || (last_ValueSetSector == 0xFFFF))
-	{
+	if ((last_ValueSetSector == 0) || (last_ValueSetSector == 0xFFFF)) {
 		last_ValueSetSector = 100;
 	}
 	REGISTOR_MODBUS[VALUE_CalibSector] = last_ValueSetSector;
 
 	PE_ReadExtEepromU16(PE_ValueADCMinOutput, &last_SetMinADCOutput);
-	if ((last_SetMinADCOutput == 0) || (last_SetMinADCOutput == 0xFFFF))
-	{
+	if ((last_SetMinADCOutput == 0) || (last_SetMinADCOutput == 0xFFFF)) {
 		last_SetMinADCOutput = 1000;
 	}
 	REGISTOR_MODBUS[VALUE_SetMINoutput] = last_SetMinADCOutput;
 
 	PE_ReadExtEepromU16(PE_ValueADCMaxOutput, &last_SetMaxADCOutput);
-	if ((last_SetMaxADCOutput == 0) || (last_SetMaxADCOutput == 0xFFFF))
-	{
+	if ((last_SetMaxADCOutput == 0) || (last_SetMaxADCOutput == 0xFFFF)) {
 		last_SetMaxADCOutput = 1000;
 	}
 	REGISTOR_MODBUS[VALUE_SetMAXoutput] = last_SetMaxADCOutput;
 
 	PE_ReadExtEepromU16(PE_ADC_N40, &last_ADC_N40);
-	if ((last_ADC_N40 == 0) || (last_ADC_N40 == 0xFFFF))
-	{
+	if ((last_ADC_N40 == 0) || (last_ADC_N40 == 0xFFFF)) {
 		last_ADC_N40 = 1000;
 	}
 	REGISTOR_MODBUS[VALUE_ADC_N40] = last_ADC_N40;
 
+	PE_ReadExtEepromU16(PE_ADC_N30, &last_ADC_N30);
+	if ((last_ADC_N30 == 0) || (last_ADC_N30 == 0xFFFF)) {
+		last_ADC_N30 = 1000;
+	}
+	REGISTOR_MODBUS[VALUE_ADC_N30] = last_ADC_N30;
+
+	PE_ReadExtEepromU16(PE_ADC_N20, &last_ADC_N20);
+	if ((last_ADC_N20 == 0) || (last_ADC_N20 == 0xFFFF)) {
+		last_ADC_N20 = 1000;
+	}
+	REGISTOR_MODBUS[VALUE_ADC_N20] = last_ADC_N20;
+
+	PE_ReadExtEepromU16(PE_ADC_N10, &last_ADC_N10);
+	if ((last_ADC_N10 == 0) || (last_ADC_N10 == 0xFFFF)) {
+		last_ADC_N10 = 1000;
+	}
+	REGISTOR_MODBUS[VALUE_ADC_N10] = last_ADC_N10;
+
 	PE_ReadExtEepromU16(PE_ADC_0, &last_ADC_0);
-	if ((last_ADC_0 == 0) || (last_ADC_0 == 0xFFFF))
-	{
+	if ((last_ADC_0 == 0) || (last_ADC_0 == 0xFFFF)) {
 		last_ADC_0 = 1500;
 	}
 	REGISTOR_MODBUS[VALUE_ADC_0] = last_ADC_0;
 
+	PE_ReadExtEepromU16(PE_ADC_P10, &last_ADC_P10);
+	if ((last_ADC_P10 == 0) || (last_ADC_P10 == 0xFFFF)) {
+		last_ADC_P10 = 2000;
+	}
+	REGISTOR_MODBUS[VALUE_ADC_P10] = last_ADC_P10;
+
+	PE_ReadExtEepromU16(PE_ADC_P20, &last_ADC_P20);
+	if ((last_ADC_P20 == 0) || (last_ADC_P20 == 0xFFFF)) {
+		last_ADC_P20 = 2000;
+	}
+	REGISTOR_MODBUS[VALUE_ADC_P20] = last_ADC_P20;
+
+	PE_ReadExtEepromU16(PE_ADC_P30, &last_ADC_P30);
+	if ((last_ADC_P30 == 0) || (last_ADC_P30 == 0xFFFF)) {
+		last_ADC_P30 = 2000;
+	}
+	REGISTOR_MODBUS[VALUE_ADC_P30] = last_ADC_P30;
+
 	PE_ReadExtEepromU16(PE_ADC_P40, &last_ADC_P40);
-	if ((last_ADC_P40 == 0) || (last_ADC_P40 == 0xFFFF))
-	{
+	if ((last_ADC_P40 == 0) || (last_ADC_P40 == 0xFFFF)) {
 		last_ADC_P40 = 2000;
 	}
 	REGISTOR_MODBUS[VALUE_ADC_P40] = last_ADC_P40;
 }
 
-void Apli_Epprom_Loop(void)
-{
+void Apli_Epprom_Loop(void) {
 }

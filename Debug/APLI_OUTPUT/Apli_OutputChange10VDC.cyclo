@@ -1,2 +1,2 @@
-../APLI_OUTPUT/Apli_OutputChange10VDC.c:26:6:Apli_OutputChange10VDC_Init	1
-../APLI_OUTPUT/Apli_OutputChange10VDC.c:35:6:Apli_OutputChange10VDC_SetValue	11
+../APLI_OUTPUT/Apli_OutputChange10VDC.c:31:6:Apli_OutputChange10VDC_Init	1
+../APLI_OUTPUT/Apli_OutputChange10VDC.c:37:6:Apli_OutputChange10VDC_SetValue	21

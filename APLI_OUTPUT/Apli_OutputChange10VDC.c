@@ -11,13 +11,15 @@
 #define ENABLE_CS2_Pin GPIO_PIN_12
 #define ENABLE_CS2_GPIO_Port GPIOB
 
-// extern uint16_t last_ValueSetTerminal;
-// extern uint16_t last_ValueSetSector;
-// extern uint16_t last_SetMinADCOutput;
-// extern uint16_t last_SetMaxADCOutput;
 extern float Value_ADCVolt_filtered[2];
 extern uint16_t last_ADC_N40;
+extern uint16_t last_ADC_N30;
+extern uint16_t last_ADC_N20;
+extern uint16_t last_ADC_N10;
 extern uint16_t last_ADC_0;
+extern uint16_t last_ADC_P10;
+extern uint16_t last_ADC_P20;
+extern uint16_t last_ADC_P30;
 extern uint16_t last_ADC_P40;
 
 // static float Kmin = 0;
@@ -30,60 +32,64 @@ void Apli_OutputChange10VDC_Init(void)
 {
     DAC8560_Init(&_SPI2_DAC1, &hspi2, ENABLE_CS2_GPIO_Port, ENABLE_CS2_Pin);
     DAC8560_EnableInternalVref(&_SPI2_DAC1);
-
-    // Kmin = (float)(1000.0f / last_SetMinADCOutput); // Hệ số x100
-    // Kmax = (float)(1000.0f / last_SetMaxADCOutput);
 }
 
 void Apli_OutputChange10VDC_SetValue(void)
 {
-    // float_t dummy_angle = (Value_ADCVolt_filtered[0] - last_ValueSetSector) / 11.375f; // Tìm ra góc thay đổi theo Sector
+    int32_t angle_X100;
 
-    // float dummy_OutputZERO = last_ValueSetTerminal * 16.00f; // ADC output để đồng hồ chỉ 0 độ
-
-    // if (dummy_angle <= -45.0f)
-    // {
-    //     OUTPUT = 0;
-    // }
-    // else if (dummy_angle >= 45.0f)
-    // {
-    //     OUTPUT = 65535;
-    // }
-    // else if ((dummy_angle > -45.0f) && (dummy_angle < -38.00f))
-    //     {
-    //         OUTPUT = (dummy_OutputZERO + (dummy_angle * 727.18f)) * 0.98;
-    //     }
-    // else if ((dummy_angle >= -38.0f) && (dummy_angle < -28.00f))
-    // {
-    //     OUTPUT = (dummy_OutputZERO + (dummy_angle * 727.18f)) * 0.997;
-    // }
-    // else if ((dummy_angle >= -28.0f) && (dummy_angle < -18.00f))
-    //     {
-    //         OUTPUT = (dummy_OutputZERO + (dummy_angle * 727.18f)) * 1.02;
-    //     }
-    // else if ((dummy_angle >= 18.00f) && (dummy_angle < 45.0f))
-    // {
-    //     OUTPUT = (dummy_OutputZERO + (dummy_angle * 727.18f)) * Kmax;
-    // }
-    //   else OUTPUT = (dummy_OutputZERO + (dummy_angle * 727.18f));
-
-    int32_t angle_X100 = ((int32_t)(Value_ADCVolt_filtered[0] - last_ADC_N40) * 4000) / (last_ADC_0 - last_ADC_N40) - 4000;
-
-    if (Value_ADCVolt_filtered[0] <= last_ADC_0)
+    if (Value_ADCVolt_filtered[0] < last_ADC_N40)
     {
-        angle_X100 = (Value_ADCVolt_filtered[0] - last_ADC_N40) * 4000 / (last_ADC_0 - last_ADC_N40) - 4000;
+        angle_X100 = (last_ADC_N40 - Value_ADCVolt_filtered[0]) - 5000;
     }
-    else if ((Value_ADCVolt_filtered[0] > last_ADC_0) && (Value_ADCVolt_filtered[0] <= last_ADC_P40))
+    else if ((Value_ADCVolt_filtered[0] < last_ADC_N30) && (Value_ADCVolt_filtered[0] >= last_ADC_N40))
     {
-        angle_X100 = (Value_ADCVolt_filtered[0] - last_ADC_0) * 4000 / (last_ADC_P40 - last_ADC_0);
+        angle_X100 = ((Value_ADCVolt_filtered[0] - last_ADC_N40) * 1000 / (last_ADC_N30 - last_ADC_N40) - 4000);
     }
-
-    if ((Value_ADCVolt_filtered[0] < last_ADC_N40) || (Value_ADCVolt_filtered[0] > last_ADC_P40))
+    else if ((Value_ADCVolt_filtered[0] < last_ADC_N20) && (Value_ADCVolt_filtered[0] >= last_ADC_N30))
     {
-        angle_X100 = (Value_ADCVolt_filtered[0] - last_ADC_0) * 36000.0f / 4096.0f
+        angle_X100 = ((Value_ADCVolt_filtered[0] - last_ADC_N30) * 1000 / (last_ADC_N20 - last_ADC_N30) - 3000);
+    }
+    else if ((Value_ADCVolt_filtered[0] < last_ADC_N10) && (Value_ADCVolt_filtered[0] >= last_ADC_N20))
+    {
+    	angle_X100 = ((Value_ADCVolt_filtered[0] - last_ADC_N20) * 1000 / (last_ADC_N10 - last_ADC_N20) - 2000);
+    }
+    else if ((Value_ADCVolt_filtered[0] < last_ADC_0) && (Value_ADCVolt_filtered[0] >= last_ADC_N10))
+    {
+    	angle_X100 = ((Value_ADCVolt_filtered[0] - last_ADC_N10) * 1000 / (last_ADC_0 - last_ADC_N10) - 1000);
+    }
+    else if ((Value_ADCVolt_filtered[0] >= last_ADC_0) && (Value_ADCVolt_filtered[0] < last_ADC_P10))
+    {
+        angle_X100 =((Value_ADCVolt_filtered[0] - last_ADC_0) * 1000 / (last_ADC_P10 - last_ADC_0));
+    }
+    else if ((Value_ADCVolt_filtered[0] >= last_ADC_P10) && (Value_ADCVolt_filtered[0] < last_ADC_P20))
+    {
+    	 angle_X100 =((Value_ADCVolt_filtered[0] - last_ADC_P10) * 1000 / (last_ADC_P20 - last_ADC_P10) + 1000);
+    }
+    else if ((Value_ADCVolt_filtered[0] >= last_ADC_P20) && (Value_ADCVolt_filtered[0] < last_ADC_P30))
+    {
+    	 angle_X100 =((Value_ADCVolt_filtered[0] - last_ADC_P20) * 1000 / (last_ADC_P30 - last_ADC_P20) + 2000);
+    }
+    else if ((Value_ADCVolt_filtered[0] >= last_ADC_P30) && (Value_ADCVolt_filtered[0] < last_ADC_P40))
+    {
+    	 angle_X100 =((Value_ADCVolt_filtered[0] - last_ADC_P30) * 1000 / (last_ADC_P40 - last_ADC_P30) + 3000);
+    }
+    else if (Value_ADCVolt_filtered[0] >= last_ADC_P40)
+    {
+        angle_X100 = (Value_ADCVolt_filtered[0] - last_ADC_P40) + 4000;
     }
 
     OUTPUT = ((angle_X100 + 4500) * 65535) / 9000;
+
+    if (angle_X100 < -4500)
+    {
+        OUTPUT = 0;
+    }
+
+    if (angle_X100 > 4500)
+    {
+        OUTPUT = 65535;
+    }
 
     DAC8560_WriteValue(&_SPI2_DAC1, (uint16_t)(OUTPUT));
 }

@@ -20,7 +20,13 @@ MCP3208_SPI _SPI1_ADC;
 
 // extern uint16_t last_ValueSetSector;
 extern uint16_t last_ADC_N40;
+extern uint16_t last_ADC_N30;
+extern uint16_t last_ADC_N20;
+extern uint16_t last_ADC_N10;
 extern uint16_t last_ADC_0;
+extern uint16_t last_ADC_P10;
+extern uint16_t last_ADC_P20;
+extern uint16_t last_ADC_P30;
 extern uint16_t last_ADC_P40;
 
 float Value_ADCVolt_filtered[2] = {0};
@@ -42,7 +48,7 @@ void Apli_Multi_Read_Init(void)
         /* code */
         uint16_t adc = MCP3208_Read_Channel(&_SPI1_ADC, i);
         Kalman_Init(&kalman[i],
-                    5E-3f, // Q tỉ lệ thuận với độ trễ (Q càng nhỏ thì thay đổi giá trị càng chậm)
+                    2E-3f, // Q tỉ lệ thuận với độ trễ (Q càng nhỏ thì thay đổi giá trị càng chậm)
                     5E1f,  // R tỉ lệ nghịch với độ nhiễu (R càng nhỏ thì lọc nhiều nhiễu hơn, độ trễ hơn)
                     adc);
     }
@@ -61,19 +67,78 @@ void Apli_Multi_Read_Loop(void)
     Value_Of_VoltADC[1] = MCP3208_Read_Channel(&_SPI1_ADC, 1);
     Value_ADCVolt_filtered[1] = Kalman_Update(&kalman[1], (float)Value_Of_VoltADC[1]);
 
-    if (Value_ADCVolt_filtered[0] <= last_ADC_0)
-    {
-        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N40) * 400 / (last_ADC_0 - last_ADC_N40) - 400;
-    }
-    else if ((Value_ADCVolt_filtered[0] > last_ADC_0) && (Value_ADCVolt_filtered[0] <= last_ADC_P40))
-    {
-        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 400 / (last_ADC_P40 - last_ADC_0);
-    }
+     if ((Value_ADCVolt_filtered[0] < last_ADC_0) && (Value_ADCVolt_filtered[0] >= last_ADC_N30))
+     {
+         OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N30) * 300 / (last_ADC_0 - last_ADC_N30) - 300;
+     }
+     else if ((Value_ADCVolt_filtered[0] >= last_ADC_0) && (Value_ADCVolt_filtered[0] < last_ADC_P30))
+     {
+         OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 300 / (last_ADC_P30 - last_ADC_0);
+     }
 
-    if ((Value_ADCVolt_filtered[0] < last_ADC_N40) || (Value_ADCVolt_filtered[0] > last_ADC_P40))
-    {
-        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 3600.0f / 4096.0f
-    }
+     if ((Value_ADCVolt_filtered[0] < last_ADC_N30) || (Value_ADCVolt_filtered[0] > last_ADC_P30))
+     {
+         OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 3600.0f / 4096.0f;
+     }
 
+//    if (Value_ADCVolt_filtered[0] >= last_ADC_N40)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N40) * 100 /
+//                          (last_ADC_N30 - last_ADC_N40) -
+//                      400;
+//    }
+//    else if (Value_ADCVolt_filtered[0] > last_ADC_N30)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N30) * 100 /
+//                          (last_ADC_N20 - last_ADC_N30) -
+//                      300;
+//    }
+//    else if (Value_ADCVolt_filtered[0] > last_ADC_N20)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N20) * 100 /
+//                          (last_ADC_N10 - last_ADC_N20) -
+//                      200;
+//    }
+//    else if (Value_ADCVolt_filtered[0] > last_ADC_N10)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_N10) * 100 /
+//                          (last_ADC_0 - last_ADC_N10) -
+//                      100;
+//    }
+//    else if (Value_ADCVolt_filtered[0] < last_ADC_P10)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_P10) * 100 /
+//                      (last_ADC_P10 - last_ADC_0);
+//    }
+//    else if (Value_ADCVolt_filtered[0] < last_ADC_P20)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_P20) * 100 /
+//                          (last_ADC_P20 - last_ADC_P10) +
+//                      100;
+//    }
+//    else if (Value_ADCVolt_filtered[0] < last_ADC_P30)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_P20) * 100 /
+//                          (last_ADC_P30 - last_ADC_P20) +
+//                      200;
+//    }
+//    else if (Value_ADCVolt_filtered[0] <= last_ADC_P40)
+//    {
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_P30) * 100 /
+//                          (last_ADC_P40 - last_ADC_P30) +
+//                      300;
+//    }
+//
+//    if (Value_ADCVolt_filtered[0] > last_ADC_P40)
+//    {
+//        // Ngoài vùng +40°
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 3600L / 4096L;
+//    }
+//
+//    if (Value_ADCVolt_filtered[0] < last_ADC_N40)
+//    {
+//        // Ngoài vùng -40°
+//        OutputAngle = (Value_ADCVolt_filtered[0] - last_ADC_0) * 3600L / 4096L;
+//    }
 #endif
 }
